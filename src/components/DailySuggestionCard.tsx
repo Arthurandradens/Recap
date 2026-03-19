@@ -2,44 +2,25 @@
 
 import ReactMarkdown from "react-markdown";
 
-interface DailySuggestionCardProps {
-  suggestion: string;
-}
+interface DailySuggestionCardProps { suggestion: string }
 
 export default function DailySuggestionCard({ suggestion }: DailySuggestionCardProps) {
   return (
-    <div className="rounded-lg border border-indigo-200 bg-indigo-50/50 p-6 shadow-sm">
-      <h2 className="mb-3 text-lg font-semibold text-indigo-900">
+    <div className="rounded-xl border border-[var(--color-cyan-dim)] bg-[var(--color-cyan-dim)]/10 p-6">
+      <h2 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--color-cyan)]">
+        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+        </svg>
         Sugestão para Daily
       </h2>
-      <div className="text-sm leading-relaxed text-indigo-800">
-        <ReactMarkdown
-          components={{
-            h1: ({ children }) => (
-              <h3 className="mt-4 mb-2 text-base font-bold text-indigo-900">{children}</h3>
-            ),
-            h2: ({ children }) => (
-              <h4 className="mt-3 mb-2 text-sm font-bold text-indigo-900">{children}</h4>
-            ),
-            h3: ({ children }) => (
-              <h5 className="mt-2 mb-1 text-sm font-semibold text-indigo-800">{children}</h5>
-            ),
-            p: ({ children }) => <p className="mb-2">{children}</p>,
-            ul: ({ children }) => <ul className="mb-2 ml-4 list-disc space-y-1">{children}</ul>,
-            ol: ({ children }) => <ol className="mb-2 ml-4 list-decimal space-y-1">{children}</ol>,
-            li: ({ children }) => <li>{children}</li>,
-            strong: ({ children }) => (
-              <strong className="font-semibold text-indigo-900">{children}</strong>
-            ),
-            em: ({ children }) => <em className="italic">{children}</em>,
-            code: ({ children }) => (
-              <code className="rounded bg-indigo-100 px-1 py-0.5 text-xs">{children}</code>
-            ),
-            hr: () => <hr className="my-3 border-indigo-200" />,
-          }}
-        >
-          {suggestion}
-        </ReactMarkdown>
+      <div className="text-sm leading-relaxed text-[var(--color-text-muted)]">
+        <ReactMarkdown components={{
+          p: ({ children }) => <p className="mb-2">{children}</p>,
+          ul: ({ children }) => <ul className="mb-2 ml-4 list-disc space-y-1">{children}</ul>,
+          li: ({ children }) => <li>{children}</li>,
+          strong: ({ children }) => <strong className="font-semibold text-[var(--color-cyan)]">{children}</strong>,
+          code: ({ children }) => <code className="rounded border border-[var(--color-border)] bg-[var(--color-surface)] px-1.5 py-0.5 font-[family-name:var(--font-mono)] text-xs text-[var(--color-emerald)]">{children}</code>,
+        }}>{suggestion}</ReactMarkdown>
       </div>
     </div>
   );

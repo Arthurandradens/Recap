@@ -40,25 +40,18 @@ export default function Home() {
       setLoading(true);
       setError(null);
       setData(null);
-
       try {
         const params = new URLSearchParams({ date: targetDate });
         if (refresh) params.set("refresh", "true");
         const res = await fetch(`/api/summary?${params}`);
         const json = await res.json();
-
         if (!res.ok) {
           setError(json as ApiErrorResponse);
         } else {
           setData(json as SummaryResponse);
         }
       } catch {
-        setError({
-          error: {
-            code: "INTERNAL_ERROR",
-            message: "Failed to connect to the server",
-          },
-        });
+        setError({ error: { code: "INTERNAL_ERROR", message: "Falha ao conectar com o servidor" } });
       } finally {
         setLoading(false);
       }
@@ -70,68 +63,84 @@ export default function Home() {
     fetchSummary(date);
   }, [date, fetchSummary]);
 
-  const handleDateChange = (newDate: string) => {
-    setDate(newDate);
-  };
-
-  const isEmpty =
-    data && data.pullRequests.length === 0 && data.commits.length === 0;
+  const isEmpty = data && data.pullRequests.length === 0 && data.commits.length === 0;
 
   return (
     <div className="space-y-6">
+      {/* Header */}
       <header className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">PR Resume</h1>
-          {repoName && <p className="text-sm text-gray-500">{repoName}</p>}
+          <h1 className="flex items-center gap-2 font-[family-name:var(--font-mono)] text-lg font-bold text-[var(--color-text)]">
+            <span className="text-[var(--color-emerald)]">&#9679;</span>
+            recap
+          </h1>
+          {repoName && (
+            <p className="mt-0.5 font-[family-name:var(--font-mono)] text-sm text-[var(--color-text-muted)]">
+              {repoName}
+            </p>
+          )}
         </div>
         <Link
           href="/config"
-          className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50"
+          className="rounded-md border border-[var(--color-border)] px-3 py-1.5 text-sm text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)]"
         >
           Settings
         </Link>
       </header>
 
-      <div className="flex items-center gap-3">
-        <DatePicker date={date} onDateChange={handleDateChange} />
+      {/* Date navigation */}
+      <div className="flex items-center justify-between">
+        <DatePicker date={date} onDateChange={setDate} />
         {data && !loading && (
           <button
             onClick={() => fetchSummary(date, true)}
-            className="rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-50"
-            title="Regenerar resumo"
+            className="flex items-center gap-1.5 rounded-md border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1.5 text-xs text-[var(--color-text-muted)] transition-colors hover:bg-[var(--color-surface-hover)] hover:text-[var(--color-text)]"
           >
-            Refresh
+            <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Regenerar
           </button>
         )}
       </div>
 
       {loading && <LoadingSkeleton />}
-
-      {error && (
-        <ErrorDisplay error={error} onRetry={() => fetchSummary(date)} />
-      )}
+      {error && <ErrorDisplay error={error} onRetry={() => fetchSummary(date)} />}
 
       {data && !isEmpty && (
-        <div className="space-y-4">
-          <StatsBar stats={data.stats} />
-          {data.relevanceScore > 0 && (
-            <RelevanceScore
-              score={data.relevanceScore}
-              justification={data.relevanceJustification}
-            />
-          )}
-          <SummaryCard summary={data.summary} />
-          {data.dailySuggestion && (
-            <DailySuggestionCard suggestion={data.dailySuggestion} />
-          )}
-          <PRList pullRequests={data.pullRequests} />
-          <CommitList commits={data.commits} />
+        <div className="space-y-4 animate-fade-in">
+          {/* Score + Stats */}
+          <div className="flex items-center gap-6 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+            {data.relevanceScore > 0 && (
+              <>
+                <RelevanceScore score={data.relevanceScore} justification={data.relevanceJustification} />
+                <div className="h-12 w-px bg-[var(--color-border)]" />
+              </>
+            )}
+            <StatsBar stats={data.stats} />
+          </div>
+
+          {/* AI content */}
+          <div className="grid gap-4 lg:grid-cols-2">
+            <SummaryCard summary={data.summary} />
+            {data.dailySuggestion && <DailySuggestionCard suggestion={data.dailySuggestion} />}
+          </div>
+
+          {/* Activity details */}
+          <div className="grid gap-4 lg:grid-cols-2">
+            <PRList pullRequests={data.pullRequests} />
+            <CommitList commits={data.commits} />
+          </div>
         </div>
       )}
 
       {isEmpty && (
-        <div className="rounded-lg border border-gray-200 bg-white p-8 text-center">
-          <p className="text-gray-500">No activity found for {date}</p>
+        <div className="flex flex-col items-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] py-16 text-center">
+          <span className="text-4xl">🌙</span>
+          <p className="mt-3 text-sm text-[var(--color-text-muted)]">
+            Nenhuma atividade encontrada em{" "}
+            <span className="font-[family-name:var(--font-mono)] text-[var(--color-text)]">{date}</span>
+          </p>
         </div>
       )}
     </div>

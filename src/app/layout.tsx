@@ -1,33 +1,22 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const jetbrains = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = { themeColor: "#08080d" };
 
 export const metadata: Metadata = {
-  title: "PR Resume",
-  description: "Daily work summaries from GitHub pull requests and commits",
+  title: "Recap — Seu trabalho, visualizado",
+  description: "Resumos diários do seu código com IA, heatmaps de atividade e sugestões para daily standup.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
-      >
-        <div className="mx-auto max-w-4xl p-4">{children}</div>
+    <html lang="pt-BR" className="dark">
+      <body className={`${outfit.variable} ${jetbrains.variable} font-[family-name:var(--font-outfit)] antialiased grain`}>
+        <div className="mx-auto max-w-5xl px-6 py-8">{children}</div>
       </body>
     </html>
   );

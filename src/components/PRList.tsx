@@ -1,44 +1,24 @@
 import { PullRequest } from "@/lib/types";
 
-interface PRListProps {
-  pullRequests: PullRequest[];
-}
-
-export default function PRList({ pullRequests }: PRListProps) {
-  if (pullRequests.length === 0) {
-    return (
-      <div className="rounded-lg border border-gray-200 bg-white p-6">
-        <h2 className="mb-2 text-lg font-semibold text-gray-900">Pull Requests</h2>
-        <p className="text-sm text-gray-500">No pull requests merged on this date.</p>
-      </div>
-    );
-  }
-
+export default function PRList({ pullRequests }: { pullRequests: PullRequest[] }) {
+  if (pullRequests.length === 0) return null;
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="mb-3 text-lg font-semibold text-gray-900">
-        Pull Requests ({pullRequests.length})
+    <div className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6">
+      <h2 className="mb-4 flex items-center gap-2 text-sm font-semibold text-[var(--color-text)]">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-violet)]" />
+        Pull Requests <span className="font-[family-name:var(--font-mono)] text-xs font-normal text-[var(--color-text-muted)]">({pullRequests.length})</span>
       </h2>
-      <ul className="divide-y divide-gray-100">
+      <ul className="divide-y divide-[var(--color-border-subtle)]">
         {pullRequests.map((pr) => (
           <li key={pr.number} className="py-3 first:pt-0 last:pb-0">
-            <div className="flex items-start justify-between gap-2">
+            <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
-                <a
-                  href={pr.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-blue-600 hover:underline"
-                >
-                  #{pr.number}
-                </a>{" "}
-                <span className="text-sm text-gray-900">{pr.title}</span>
+                <a href={pr.url} target="_blank" rel="noopener noreferrer" className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-violet)] hover:underline">#{pr.number}</a>{" "}
+                <span className="text-sm text-[var(--color-text)]">{pr.title}</span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-500">@{pr.author}</span>
-                <span className="inline-flex rounded-full bg-purple-100 px-2 py-0.5 text-xs font-medium text-purple-700">
-                  {pr.status}
-                </span>
+              <div className="flex shrink-0 items-center gap-2">
+                <span className="font-[family-name:var(--font-mono)] text-xs text-[var(--color-text-faint)]">@{pr.author}</span>
+                <span className="rounded border border-[var(--color-violet-dim)] bg-[var(--color-violet-dim)]/20 px-1.5 py-0.5 font-[family-name:var(--font-mono)] text-[10px] text-[var(--color-violet)]">{pr.status}</span>
               </div>
             </div>
           </li>

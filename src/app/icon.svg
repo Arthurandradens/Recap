@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="108" fill="#08080d"/>
+  <rect x="8" y="8" width="496" height="496" rx="100" stroke="#2a2a3a" stroke-width="4" fill="none"/>
+  <!-- Activity dots grid (heatmap reference) -->
+  <g opacity="0.3">
+    <rect x="80" y="340" width="28" height="28" rx="6" fill="#064e3b"/>
+    <rect x="116" y="340" width="28" height="28" rx="6" fill="#047857"/>
+    <rect x="152" y="340" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="188" y="340" width="28" height="28" rx="6" fill="#34d399"/>
+    <rect x="224" y="340" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="260" y="340" width="28" height="28" rx="6" fill="#047857"/>
+    <rect x="296" y="340" width="28" height="28" rx="6" fill="#064e3b"/>
+    <rect x="332" y="340" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="368" y="340" width="28" height="28" rx="6" fill="#34d399"/>
+    <rect x="404" y="340" width="28" height="28" rx="6" fill="#047857"/>
+
+    <rect x="80" y="376" width="28" height="28" rx="6" fill="#047857"/>
+    <rect x="116" y="376" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="152" y="376" width="28" height="28" rx="6" fill="#34d399"/>
+    <rect x="188" y="376" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="224" y="376" width="28" height="28" rx="6" fill="#064e3b"/>
+    <rect x="260" y="376" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="296" y="376" width="28" height="28" rx="6" fill="#34d399"/>
+    <rect x="332" y="376" width="28" height="28" rx="6" fill="#047857"/>
+    <rect x="368" y="376" width="28" height="28" rx="6" fill="#064e3b"/>
+    <rect x="404" y="376" width="28" height="28" rx="6" fill="#10b981"/>
+
+    <rect x="80" y="412" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="116" y="412" width="28" height="28" rx="6" fill="#064e3b"/>
+    <rect x="152" y="412" width="28" height="28" rx="6" fill="#047857"/>
+    <rect x="188" y="412" width="28" height="28" rx="6" fill="#34d399"/>
+    <rect x="224" y="412" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="260" y="412" width="28" height="28" rx="6" fill="#34d399"/>
+    <rect x="296" y="412" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="332" y="412" width="28" height="28" rx="6" fill="#064e3b"/>
+    <rect x="368" y="412" width="28" height="28" rx="6" fill="#10b981"/>
+    <rect x="404" y="412" width="28" height="28" rx="6" fill="#34d399"/>
+  </g>
+  <!-- Main "R" letterform — geometric, monospace feel -->
+  <path d="M160 100 L160 300 L200 300 L200 230 L280 300 L332 300 L240 220 C290 215 320 185 320 150 C320 110 290 100 250 100 Z M200 135 L245 135 C275 135 285 145 285 158 C285 172 275 185 245 185 L200 185 Z" fill="#10b981"/>
+  <!-- Dot accent -->
+  <circle cx="360" cy="120" r="22" fill="#10b981"/>
+</svg>
